@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 20, 2022 3:06:03 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.model.Post" table="post" catalog="project_aksu">
+        <id name="pid" type="java.lang.Integer">
+            <column name="pid" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="categories" class="com.model.Categories" fetch="select">
+            <column name="catid" />
+        </many-to-one>
+        <property name="title" type="string">
+            <column name="title" length="100" />
+        </property>
+        <property name="message" type="string">
+            <column name="message" length="100" />
+        </property>
+        <property name="image" type="string">
+            <column name="image" length="100" />
+        </property>
+        <property name="userId" type="java.lang.Integer">
+            <column name="user_id" />
+        </property>
+        <property name="pdate" type="timestamp">
+            <column name="pdate" length="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

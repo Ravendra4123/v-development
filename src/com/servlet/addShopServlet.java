@@ -1,0 +1,85 @@
+package com.servlet;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+
+
+import java.util.Date;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import com.dao.UserDao;
+import com.model.Shop;
+
+/**
+ * Servlet implementation class addShopServlet
+ */
+@WebServlet("/addShopServlet")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, maxFileSize = 1024 * 1024 * 50, maxRequestSize = 1024 * 1024 * 50)
+public class addShopServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	UserDao ud = new UserDao();
+	Shop sp=new Shop();
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public addShopServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		PrintWriter pw = response.getWriter();
+
+		String name = request.getParameter("name");
+		String mobile = request.getParameter("contact");
+		Part part = request.getPart("file");
+
+		sp.setName(name);
+		sp.setMobile(mobile);
+		sp.setImage(part.getSubmittedFileName());
+	
+		ud.saveShop(sp);
+
+		try {
+			String path = request.getRealPath("images") + File.separator + "Simage" + File.separator + part.getSubmittedFileName();
+			System.out.println(path);
+
+			FileOutputStream fos = new FileOutputStream(path);
+			InputStream is = part.getInputStream();
+
+			byte[] data = new byte[is.available()];
+
+			is.read(data);
+
+			fos.write(data);
+
+			fos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		 pw.println("<script type=\"text/javascript\">");
+		 pw.println("alert('Shop Added...');");
+		 pw.println("location='addshop.jsp';");
+		 pw.println("</script>");
+
+	}
+
+}

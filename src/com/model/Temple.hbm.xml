@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 20, 2022 3:06:03 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.model.Temple" table="temple" catalog="project_aksu">
+        <id name="tid" type="java.lang.Integer">
+            <column name="tid" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="100" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="100" not-null="true" />
+        </property>
+        <property name="sfunction" type="string">
+            <column name="sfunction" length="100" not-null="true" />
+        </property>
+        <property name="distance" type="string">
+            <column name="distance" length="100" not-null="true" />
+        </property>
+        <property name="images" type="string">
+            <column name="images" length="100" not-null="true" />
+        </property>
+        <property name="staphana" type="string">
+            <column name="staphana" length="100" not-null="true" />
+        </property>
+        <property name="type" type="string">
+            <column name="type" length="100" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
